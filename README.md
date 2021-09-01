@@ -1,2 +1,1 @@
-# Keksogram
-The second project with mentor.Keksogram
+Keksobooking project
