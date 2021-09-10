@@ -27,3 +27,9 @@ export function clonPicture(incomingValue){
 }
 
 clonPicture(one)
+
+const pictContainer = document.querySelector(".pictures")
+const fragment = document.createDocumentFragment();
+fragment.appendChild(clonPicture())
+pictContainer.appendChild(fragment)
+
