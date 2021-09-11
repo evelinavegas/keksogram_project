@@ -1,8 +1,11 @@
+
 import {avatars} from "./date.js"
 
-let one = avatars[0]
+
+
 
 export function clonPicture(incomingValue){
+  
   const picture = document.getElementById("picture")
   .content
 
@@ -13,23 +16,38 @@ export function clonPicture(incomingValue){
   let imgSrc = clonedPicture.querySelector(".picture__img")
   
 
-  let someLikes = incomingValue["desc"].likes
+  let someLikes = incomingValue.likes
   pictureLikes.innerText = someLikes
 
-  let someComments = incomingValue["desc"].comments
+  let someComments = incomingValue.comments.length
   picturesComments.innerText = someComments
 
-  let newUrl = incomingValue["desc"].url
-  debugger
-  `<img src="${newUrl}">`
+  let newUrl = incomingValue.url
+  imgSrc.src = newUrl 
+
  console.log(incomingValue)
+
+  const pictContainer = document.querySelector(".pictures")
+  const fragment = document.createDocumentFragment();
+ 
+  fragment.appendChild(clonedPicture)
+  
+  pictContainer.appendChild(fragment)
+  
+  
  return clonedPicture
 }
 
-clonPicture(one)
+let i ;
+for(i = 0; i < 26; i++){
+  let one = avatars[i]
+  clonPicture(one)
+}
 
-const pictContainer = document.querySelector(".pictures")
-const fragment = document.createDocumentFragment();
-fragment.appendChild(clonPicture())
-pictContainer.appendChild(fragment)
+
+
+
+
+
+
 

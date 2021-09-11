@@ -17,19 +17,23 @@ let mapComm = comm.map((el, index) => ({
 }))
 
 
+
+
  let photo =new Array(25)
 photo.fill()
 console.log(photo)
-export let avatars = photo.map((el, index) =>({
-  desc : {
+export let avatars = photo.map((el, index) =>{
+  let photoUrl = index + 1; 
+  
+ const desc = {
     id: index ,
     description: "Это аватар!",
-    url: "photos/" + index + ".jpg",
+    url: "../photos/" + photoUrl + ".jpg",
     likes: randomMinMaxInclusive(15, 200) ,
     comments: mapComm,
   }
-  
-}))
+  return desc
+})
  
 console.log(avatars)
 
