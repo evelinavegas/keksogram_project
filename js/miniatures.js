@@ -2,8 +2,6 @@
 import {avatars} from "./date.js"
 
 
-
-
 export function clonPicture(incomingValue){
   
   const picture = document.getElementById("picture")
@@ -14,6 +12,10 @@ export function clonPicture(incomingValue){
   let pictureLikes= clonedPicture.querySelector(".picture__likes")
   let picturesComments = clonedPicture.querySelector(".picture__comments")
   let imgSrc = clonedPicture.querySelector(".picture__img")
+  
+  let pictureContainer = clonedPicture.querySelector(".picture")
+
+  imgSrc.setAttribute("data-id", incomingValue.id)
   
 
   let someLikes = incomingValue.likes
@@ -39,7 +41,7 @@ export function clonPicture(incomingValue){
 }
 
 let i ;
-for(i = 0; i < 26; i++){
+for(i = 0; i < 25; i++){
   let one = avatars[i]
   clonPicture(one)
 }

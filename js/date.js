@@ -8,7 +8,7 @@ let mess = ["Всё отлично!", "В целом всё неплохо. Но
 let numb = [1, 2, 3, 4, 5, 6]
 
 
-let comm = new Array(30).fill()
+let comm = new Array(10).fill()
 let mapComm = comm.map((el, index) => ({
   id: index,
   avatar:  randomAvatar(6, numb),
