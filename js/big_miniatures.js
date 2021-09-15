@@ -11,12 +11,13 @@ export function big (){
   let likesCount = containerBigPicture.querySelector(".likes-count")
   let commentsCount = containerBigPicture.querySelector(".comments-count")
   let socialComments = containerBigPicture.querySelector(".social__comments")
+  let liSocialComments = containerBigPicture.querySelectorAll(".social__comment")
   let socialCaption = containerBigPicture.querySelector(".social__caption")
   let socialCommentCount = containerBigPicture.querySelector(".social__comment-count")
   let commentsLoader = containerBigPicture.querySelector(".comments-loader")
   let body = document.querySelector("body")
   let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel  cancel")
-  let socialText =  containerBigPicture.querySelector(".social__text")
+  let socialText =  containerBigPicture.querySelectorAll(".social__text")
 
 
   
@@ -44,19 +45,15 @@ export function big (){
     bigPictureUrl.src = urlBigPhoto
 
     likesCount.innerText = findPicture.likes
-
-    let textComments= findPicture.comments
-    let stringComments = textComments.map(el => {
-      // по сути нам нужно в li засовывать img, в нем присвоить src = findPicture.comments.avatar , в alt = findPicture.comments.name , width="35" height="35"..... а в P(class = social__text) = findPicture.comments.message
-
-      // `<img src = "findPicture.comments.avatar" alt = "findPicture.comments.name" width="35" height="35">`
-
-      // socialText.innerText = findPicture.comments.message
-      
-    //   return `<img src = ${findPicture.comments.avatar} 
-    //   >`
-    // }).join('');
-    commentsCount.innerText = stringComments
+debugger
+     let stringComments = findPicture.comments.map(el => {
+         return `<li class="social__comment" >
+        <img class="social__picture" src = "${el.avatar}" alt = "${el.name}" width="35" height="35">
+        <p class="social__text"> ${el.message}</p>
+      </li>`
+    }).join('');
+    
+    socialComments.innerHTML = stringComments
 
     let textDesc = findPicture.description
     socialCaption.innerText = textDesc
