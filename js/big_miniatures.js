@@ -16,14 +16,16 @@ export function big (){
   let commentsLoader = containerBigPicture.querySelector(".comments-loader")
   let body = document.querySelector("body")
   let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
-  let picture  = containerBigPicture.querySelectorAll(".picture")
+
+
+  let picture  = document.querySelector(".picture")
 
 
   
   window.addEventListener("keydown", closeKeyPicture)
   
 
-  body.addEventListener("click", renderBigPhoto)
+  picture.addEventListener("click", renderBigPhoto)
 
 
   function renderBigPhoto(evt){
