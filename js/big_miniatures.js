@@ -5,26 +5,25 @@ import {avatars} from "./date.js"
 
 let containerBigPicture = document.querySelector(".big-picture ")
 
+
 export function big (){
 
   let bigPictureUrl = containerBigPicture.querySelector(".big-picture__img>img")
   let likesCount = containerBigPicture.querySelector(".likes-count")
-  let commentsCount = containerBigPicture.querySelector(".comments-count")
   let socialComments = containerBigPicture.querySelector(".social__comments")
-  let liSocialComments = containerBigPicture.querySelectorAll(".social__comment")
   let socialCaption = containerBigPicture.querySelector(".social__caption")
   let socialCommentCount = containerBigPicture.querySelector(".social__comment-count")
   let commentsLoader = containerBigPicture.querySelector(".comments-loader")
   let body = document.querySelector("body")
-  let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel  cancel")
-  let socialText =  containerBigPicture.querySelectorAll(".social__text")
+  let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
+  let picture  = containerBigPicture.querySelectorAll(".picture")
 
 
   
   window.addEventListener("keydown", closeKeyPicture)
   
 
-  window.addEventListener("click", renderBigPhoto)
+  body.addEventListener("click", renderBigPhoto)
 
 
   function renderBigPhoto(evt){
@@ -45,14 +44,13 @@ export function big (){
     bigPictureUrl.src = urlBigPhoto
 
     likesCount.innerText = findPicture.likes
-debugger
-     let stringComments = findPicture.comments.map(el => {
+
+    let stringComments = findPicture.comments.map(el => {
          return `<li class="social__comment" >
         <img class="social__picture" src = "${el.avatar}" alt = "${el.name}" width="35" height="35">
         <p class="social__text"> ${el.message}</p>
       </li>`
     }).join('');
-    
     socialComments.innerHTML = stringComments
 
     let textDesc = findPicture.description
@@ -61,23 +59,20 @@ debugger
 
 
 
+  pictureCancel.addEventListener("click", closeClickPicture)
 
+  function closeClickPicture(evt){
+    evt.preventDefault()
+    debugger
+    pictureCancel.removeEventListener("click", renderBigPhoto)
+    
+      containerBigPicture.classList.add("hidden")
+      socialCommentCount.classList.remove("hidden")
+      commentsLoader.classList.remove("hiden")
+      body.classList.remove("modal-open")
+    
 
-
-  // pictureCancel.addEventListener("click", closeClickPicture)
-
-  // function closeClickPicture(evt){
-  
-  //   if(evt.target.className == "big-picture__cancel"){
-      
-  //     containerBigPicture.style.display = "none"
-  //     containerBigPicture.classList.add("hidden")
-  //     socialCommentCount.classList.remove("hidden")
-  //     commentsLoader.classList.remove("hidden")
-  //     body.classList.remove("modal-open")
-  //   }
-
-  // }
+  }
 
   function closeKeyPicture(evt){
    
