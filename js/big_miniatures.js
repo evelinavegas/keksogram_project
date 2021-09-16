@@ -17,15 +17,13 @@ export function big (){
   let body = document.querySelector("body")
   let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
 
-
-  let picture  = document.querySelector(".picture")
-
-
-  
+  let i;
+  let picture  = document.querySelectorAll(".picture")
   window.addEventListener("keydown", closeKeyPicture)
-  
-
-  picture.addEventListener("click", renderBigPhoto)
+  debugger
+  for(let i = 0; i < picture.length; i++){
+ 
+  picture[i].addEventListener("click", renderBigPhoto)
 
 
   function renderBigPhoto(evt){
@@ -59,14 +57,12 @@ export function big (){
     socialCaption.innerText = textDesc
   }
 
-
+ }
 
   pictureCancel.addEventListener("click", closeClickPicture)
 
   function closeClickPicture(evt){
     evt.preventDefault()
-    debugger
-    pictureCancel.removeEventListener("click", renderBigPhoto)
     
       containerBigPicture.classList.add("hidden")
       socialCommentCount.classList.remove("hidden")
