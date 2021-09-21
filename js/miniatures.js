@@ -11,7 +11,7 @@ export function clonPicture(incomingValue){
 
   let pictureLikes= clonedPicture.querySelector(".picture__likes")
   let imgSrc = clonedPicture.querySelector(".picture__img")
- 
+  let picturesComments = clonedPicture.querySelector(".picture__comments")
 
   imgSrc.setAttribute("data-id", incomingValue.id)
   
@@ -19,8 +19,8 @@ export function clonPicture(incomingValue){
   let someLikes = incomingValue.likes
   pictureLikes.innerText = someLikes
 
-  // let someComments = incomingValue.comments
-  // picturesComments.innerText = someComments
+  let someComments = incomingValue.comments.length
+  picturesComments.innerText = someComments
 
   let newUrl = incomingValue.url
   imgSrc.src = newUrl 

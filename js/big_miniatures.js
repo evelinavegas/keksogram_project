@@ -14,7 +14,7 @@ let body = document.querySelector("body")
 let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
 let picture  = document.querySelectorAll(".picture")
 
-export function big (evt){
+export function big (){
 
   window.addEventListener("keydown", closeKeyPicture)
   pictureCancel.addEventListener("click", closeClickPicture)
@@ -22,6 +22,7 @@ export function big (evt){
   pict()
  
 }
+
 function pict(){
   for(let i = 0; i < picture.length; i++){
     picture[i].addEventListener("click", renderBigPhoto)
@@ -36,7 +37,7 @@ function renderBigPhoto(evt){
   let num = Number(evt.target.dataset.id)
   
   let findPicture = avatars.find(element => element.id === num);
-  debugger
+  
 
   socialCommentCount.classList.add("hidden")
   commentsLoader.classList.add("hidden")

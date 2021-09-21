@@ -9,7 +9,7 @@ let mess = ["Всё отлично!", "В целом всё неплохо. Но
 let numb = [1, 2, 3, 4, 5, 6]
 
   
-function mMes(n){
+function numberOfComments (n){
   let comm = new Array(n).fill()
   let mapComm = comm.map((el, index) => ({
     id: index,
@@ -33,7 +33,7 @@ export let avatars = photo.map((el, index) =>{
     description: "Это аватар!",
     url: "../photos/" + photoUrl + ".jpg",
     likes: randomMinMaxInclusive(15, 200) ,
-    comments: mMes(randomMinMaxInclusive(2, 20))
+    comments: numberOfComments(randomMinMaxInclusive(2, 20))
   }
   return desc
 })
