@@ -14,17 +14,19 @@ let body = document.querySelector("body")
 let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
 let picture  = document.querySelectorAll(".picture")
 
-
-
 export function big (evt){
 
   window.addEventListener("keydown", closeKeyPicture)
   pictureCancel.addEventListener("click", closeClickPicture)
 
   pict()
-  renderBigPhoto()
+ 
 }
-
+function pict(){
+  for(let i = 0; i < picture.length; i++){
+    picture[i].addEventListener("click", renderBigPhoto)
+  }
+}
 
 
 function renderBigPhoto(evt){
@@ -61,11 +63,7 @@ function renderBigPhoto(evt){
 }
 
 
-function pict(){
-  for(let i = 0; i < picture.length; i++){
-    picture[i].addEventListener("click", renderBigPhoto)
-  }
-}
+
 
 function closeClickPicture(evt){
     evt.preventDefault()
