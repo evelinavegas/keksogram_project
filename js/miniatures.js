@@ -10,10 +10,8 @@ export function clonPicture(incomingValue){
   const clonedPicture = picture.cloneNode(true);
 
   let pictureLikes= clonedPicture.querySelector(".picture__likes")
-  let picturesComments = clonedPicture.querySelector(".picture__comments")
   let imgSrc = clonedPicture.querySelector(".picture__img")
-  
-  let pictureContainer = clonedPicture.querySelector(".picture")
+ 
 
   imgSrc.setAttribute("data-id", incomingValue.id)
   
@@ -21,13 +19,13 @@ export function clonPicture(incomingValue){
   let someLikes = incomingValue.likes
   pictureLikes.innerText = someLikes
 
-  let someComments = incomingValue.comments.length
-  picturesComments.innerText = someComments
+  // let someComments = incomingValue.comments
+  // picturesComments.innerText = someComments
 
   let newUrl = incomingValue.url
   imgSrc.src = newUrl 
 
- console.log(incomingValue)
+  console.log(incomingValue)
 
   const pictContainer = document.querySelector(".pictures")
   const fragment = document.createDocumentFragment();
@@ -35,7 +33,6 @@ export function clonPicture(incomingValue){
   fragment.appendChild(clonedPicture)
   
   pictContainer.appendChild(fragment)
-  
   
  return clonedPicture
 }

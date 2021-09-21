@@ -1,5 +1,6 @@
 "use strict"
-import {    randomAvatar,   randomArray, randomMinMaxInclusive } from "./util.js"
+
+import {randomAvatar, randomArray, randomMinMaxInclusive } from "./util.js"
 
 
 let names = ["Петя", "Галя", "Валя", "Вася", "Нина", "Катя", "Димон", "Алекс", "Саня"]
@@ -7,30 +8,32 @@ let mess = ["Всё отлично!", "В целом всё неплохо. Но
 
 let numb = [1, 2, 3, 4, 5, 6]
 
+  
+function mMes(n){
+  let comm = new Array(n).fill()
+  let mapComm = comm.map((el, index) => ({
+    id: index,
+    avatar:  randomAvatar(6, numb),
+    message:  randomArray( mess),
+    name: randomArray( names) ,
+  }))
 
-let comm = new Array(10).fill()
-let mapComm = comm.map((el, index) => ({
-  id: index,
-  avatar:  randomAvatar(6, numb),
-  message:  randomArray( mess),
-  name: randomArray( names) ,
-}))
+ return mapComm 
+}
 
 
-
-
- let photo =new Array(25)
+let photo =new Array(25)
 photo.fill()
 console.log(photo)
 export let avatars = photo.map((el, index) =>{
-  let photoUrl = index + 1; 
+ let photoUrl = index + 1; 
   
  const desc = {
     id: index ,
     description: "Это аватар!",
     url: "../photos/" + photoUrl + ".jpg",
     likes: randomMinMaxInclusive(15, 200) ,
-    comments: mapComm,
+    comments: mMes(randomMinMaxInclusive(2, 20))
   }
   return desc
 })

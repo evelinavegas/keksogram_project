@@ -1,8 +1,8 @@
 "use strict";
 
-// export function randomRandom(max){
-//    return Math.floor(Math.random() * max)
-// }
+export function randomRandom(max) {
+  return Math.floor(Math.random() * max);
+}
 
 export function randomArray(array){
   let myArr = array[Math.floor(Math.random() * array.length)];
@@ -21,3 +21,4 @@ export function randomAvatar(){
   let avatarRandom = "img/avatar-" + numberAvatar + ".svg"
   return avatarRandom
 }
+
