@@ -2,17 +2,17 @@
 import {avatars} from "./date.js"
 
 
-let containerBigPicture = document.querySelector(".big-picture ")
+const containerBigPicture = document.querySelector(".big-picture ")
 
-let bigPictureUrl = containerBigPicture.querySelector(".big-picture__img>img")
-let likesCount = containerBigPicture.querySelector(".likes-count")
-let socialComments = containerBigPicture.querySelector(".social__comments")
-let socialCaption = containerBigPicture.querySelector(".social__caption")
-let socialCommentCount = containerBigPicture.querySelector(".social__comment-count")
-let commentsLoader = containerBigPicture.querySelector(".comments-loader")
-let body = document.querySelector("body")
-let pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
-let picture  = document.querySelectorAll(".picture")
+const bigPictureUrl = containerBigPicture.querySelector(".big-picture__img>img")
+const likesCount = containerBigPicture.querySelector(".likes-count")
+const socialComments = containerBigPicture.querySelector(".social__comments")
+const socialCaption = containerBigPicture.querySelector(".social__caption")
+const socialCommentCount = containerBigPicture.querySelector(".social__comment-count")
+const commentsLoader = containerBigPicture.querySelector(".comments-loader")
+const body = document.querySelector("body")
+const pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
+const picture  = document.querySelectorAll(".picture")
 
 export function big (){
 
