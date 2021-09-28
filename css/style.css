@@ -56,6 +56,12 @@ main {
   overflow: hidden;
 }
 
+.valid{
+  border: 2px solid green  !important;
+}
+.invalid{
+  border: 2px solid red !important;
+}
 
 /**
  * Кнопка закрытия модального окна
