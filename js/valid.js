@@ -7,57 +7,51 @@ const form = document.querySelector(".img-upload__form")
 const hashtagsText = document.querySelector(".text__hashtags")
 const preview = document.querySelector(".img-upload__preview>img");
 const formClose = document.getElementById("upload-cancel")
-const imgTextContainer = document.querySelector(".img-upload__text")
+const textDescription = document.querySelector(".text__description")
 
 hashtagsText.addEventListener("keyup", function(){
   
   this.value = this.value.replace(/[^#a-zA-Zа-яА-Я0-9]+ $/g, '');
 })
+
+textDescription.addEventListener("keyup", function(){
+  
+  this.value = this.value.replace(/[^a-zA-Zа-яА-Я0-9]+ $/g, '');
+})
+
  
 hashtagsText.addEventListener("change", validForm)
  
-const p = document.createElement("p")
-imgTextContainer.append(p) 
-
-
 function validForm(){
-  debugger
  
     let arrayString = hashtagsText.value.split(" ")
     if(arrayString.length > 5){
-      hashtagsText.classList.add("invalid") 
-      const text = "Не больше 5-ти хэш-тегов";
-      p.innerText = text 
+      hashtagsText.setCustomValidity("Не больше 5-ти хэш-тегов")
+      hashtagsText.reportValidity()
     }
     for( let item of arrayString){
-      if(item[0] !== "#"){     
-        hashtagsText.classList.add("invalid")    
-        const text = "Отсутствует знак #";
-        p.innerText = text     
+      if(item[0] !== "#"){   
+        hashtagsText.setCustomValidity("Отсутствует знак #")
+        hashtagsText.reportValidity()
       }
       if(item.length < 2){
-        hashtagsText.classList.add("invalid")
-        const text = "Мин. длинна - 1 символ, не включая решетку";
-        p.innerText = text
-        
+        hashtagsText.setCustomValidity("Мин. длинна - 1 символ, не включая решетку")
+        hashtagsText.reportValidity()
       }
       if (item.indexOf("#", 1) > 0) {
-        hashtagsText.classList.add("invalid")
-        const text = "Хэш-теги нужно разделить пробелами";
-        p.innerText = text       
-      
+        hashtagsText.setCustomValidity("Хэш-теги нужно разделить пробелами")
+        hashtagsText.reportValidity()
       }
       else if(item.length > 20){
-        hashtagsText.classList.add("invalid")
-        const text = "Слишком большой, до 20 символов";
-        p.innerText = text
-        
+        hashtagsText.setCustomValidity("Слишком большой, до 20 символов")  
+        hashtagsText.reportValidity()
       }else {
-        hashtagsText.classList.add("valid")
-        hashtagsText.classList.remove("invalid")
+        
       }
     } 
 }
+
+
 
 
 uploadFile.addEventListener("change", open)
@@ -75,7 +69,15 @@ export function open(evt){
   body.classList.add("modal-open")
 
   formClose.addEventListener("click", closeClick)
+  // если я вешаю обработчик на наш input, то вообще ничего не срабатывает, не событие focus,не blur....только при навешивании на windoq(это выход с помощью esc)!!!
   window.addEventListener("keydown", closeKey)
+  
+  hashtagsText.addEventListener("focus", function(even){
+    // это тоже на работает
+    if(evt.keyCode == 27 ){
+      even.stopPropagation()
+    }
+  })
 }
 
 function closeClick(evt){
@@ -84,9 +86,11 @@ function closeClick(evt){
   reset()
 }
 
+
+
 function closeKey(evt){
-  let focusedElem = document.querySelector(":focus");
-  if(evt.keyCode == 27  /*&& focusedElem ==  к чему равно/не равно, чтоб отменить обработчик Esc при фокусе ????*/){
+  // let focusedElem = document.querySelector(":focus");
+  if(evt.keyCode == 27 ){
     close()
     reset()
   }
