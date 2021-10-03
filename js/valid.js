@@ -9,6 +9,7 @@ const preview = document.querySelector(".img-upload__preview>img");
 const formClose = document.getElementById("upload-cancel")
 const textDescription = document.querySelector(".text__description")
 
+
 hashtagsText.addEventListener("keyup", function(){
   
   this.value = this.value.replace(/[^#a-zA-Zа-яА-Я0-9]+ $/g, '');
@@ -69,15 +70,29 @@ export function open(evt){
   body.classList.add("modal-open")
 
   formClose.addEventListener("click", closeClick)
-  // если я вешаю обработчик на наш input, то вообще ничего не срабатывает, не событие focus,не blur....только при навешивании на windoq(это выход с помощью esc)!!!
+
   window.addEventListener("keydown", closeKey)
   
-  hashtagsText.addEventListener("focus", function(even){
-    // это тоже на работает
-    if(evt.keyCode == 27 ){
-      even.stopPropagation()
-    }
-  })
+  hashtagsText.addEventListener("blur", () =>{
+    window.addEventListener("keydown", closeKey)
+  }, 
+    true);
+
+  hashtagsText.addEventListener("focus", ()=>{
+      window.removeEventListener("keydown", closeKey)
+  }, true)
+
+  textDescription.addEventListener("blur", ()=>{
+    window.addEventListener("keydown", closeKey)
+  },
+  true)
+
+  textDescription.addEventListener("focus", ()=>{
+    window.removeEventListener("keydown", closeKey)
+  },
+  true)
+
+
 }
 
 function closeClick(evt){
@@ -88,8 +103,8 @@ function closeClick(evt){
 
 
 
+
 function closeKey(evt){
-  // let focusedElem = document.querySelector(":focus");
   if(evt.keyCode == 27 ){
     close()
     reset()
