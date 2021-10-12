@@ -14,6 +14,8 @@ const body = document.querySelector("body")
 const pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
 const picture  = document.querySelectorAll(".picture")
 
+
+
 export function big (){
 
   window.addEventListener("keydown", closeKeyPicture)
@@ -38,9 +40,6 @@ function renderBigPhoto(evt){
   
   let findPicture = avatars.find(element => element.id === num);
   
-
-  socialCommentCount.classList.add("hidden")
-  commentsLoader.classList.add("hidden")
   body.classList.add("modal-open")
 
   console.log(findPicture)
@@ -49,22 +48,61 @@ function renderBigPhoto(evt){
   bigPictureUrl.src = urlBigPhoto
 
   likesCount.innerText = findPicture.likes
-  
 
-  let stringComments = findPicture.comments.map(el => {
-       return `<li class="social__comment" >
-      <img class="social__picture" src = "${el.avatar}" alt = "${el.name}" width="35" height="35">
-      <p class="social__text"> ${el.message}</p>
-    </li>`
-  }).join('');
+
+ 
+
+  let nn = findPicture.comments.slice(0,5)
+  let lengthAllComments = findPicture.comments.length
+
+  socialCommentCount.innerHTML = nn.length + " "  + "из" + " " + lengthAllComments + " " + "комментариев";
+ 
+  let stringComments =  nn.map(el => {
+  return `<li class="social__comment" >
+  <img class="social__picture" src = "${el.avatar}" alt = "${el.name}" width="35" height="35">
+  <p class="social__text"> ${el.message}</p>
+  </li>`
+  }).join("");
+
   socialComments.innerHTML = stringComments
 
+  let count = 5;
+ 
+  commentsLoader.addEventListener("click", moreComments)
+
+  function moreComments(){
+
+     if (  lengthAllComments >= 5){
+        
+        count = count + 5
+       let yy = findPicture.comments.slice(0, count)
+       socialCommentCount.innerHTML = yy.length + " "  + "из" + " " + lengthAllComments + " " + "комментариев";
+       let stringComments =  yy.map(el => {
+       return `<li class="social__comment" >
+        <img class="social__picture" src = "${el.avatar}" alt = "${el.name}" width="35" height="35">
+        <p class="social__text"> ${el.message}</p>
+        </li>`
+       }).join("");
+      
+      socialComments.innerHTML = stringComments
+      }
+      else {
+        let stringComments =  findPicture.comments.map(el => {
+          return `<li class="social__comment" >
+          <img class="social__picture" src = "${el.avatar}" alt = "${el.name}" width="35" height="35">
+          <p class="social__text"> ${el.message}</p>
+          </li>`
+          }).join("");
+        
+          socialCommentCount.innerHTML = lengthAllComments + " "  + "из" + " " + lengthAllComments + " " + "комментариев";
+  
+          socialComments.innerHTML = stringComments
+      }
+
+  }
   let textDesc = findPicture.description
   socialCaption.innerText = textDesc
 }
-
-
-
 
 function closeClickPicture(evt){
     evt.preventDefault()
