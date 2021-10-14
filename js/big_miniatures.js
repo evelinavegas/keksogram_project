@@ -14,6 +14,8 @@ const body = document.querySelector("body")
 const pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
 const picture  = document.querySelectorAll(".picture")
 
+ 
+ 
 
 
 export function big (){
@@ -22,7 +24,6 @@ export function big (){
   pictureCancel.addEventListener("click", closeClickPicture)
 
   pict()
- 
 }
 
 function pict(){
@@ -49,8 +50,6 @@ function renderBigPhoto(evt){
 
   likesCount.innerText = findPicture.likes
 
-
- 
 
   let nn = findPicture.comments.slice(0,5)
   let lengthAllComments = findPicture.comments.length
@@ -102,6 +101,38 @@ function renderBigPhoto(evt){
   }
   let textDesc = findPicture.description
   socialCaption.innerText = textDesc
+   // SCALE
+
+  // отображение масштаба 
+  function scaleDisplay(){
+    valueScale.value = String(maxValue) + "%";
+  }
+
+  // уменшение
+
+  smallerScale.addEventListener("click", smaller)
+  function smaller(){
+    
+    if(valueScale.value != "25%"){
+      maxValue -= 25
+      scaleDisplay()
+      cssScale ()
+    }
+  }
+
+  // увеличение
+  biggerScale.addEventListener("click", bigger)
+  function bigger(){
+    if(valueScale.value != "100%"){
+      maxValue += 25
+      scaleDisplay()
+      cssScale ()
+    }
+  }
+  // отображение в css
+  function cssScale () {
+    bigPictureUrl.style.transform = "scale" + "(" + valueScale.value + ")";
+  };
 }
 
 function closeClickPicture(evt){

@@ -10,6 +10,18 @@ const formClose = document.getElementById("upload-cancel")
 const textDescription = document.querySelector(".text__description")
 
 
+// changing scale
+const smallerScale = document.querySelector(".scale__control--smaller")
+const biggerScale = document.querySelector(".scale__control--bigger")
+const valueScale = document.querySelector(".scale__control--value")
+let maxValue = 100;
+
+// effect 
+
+ 
+
+
+
 hashtagsText.addEventListener("keyup", function(){
   
   this.value = this.value.replace(/[^#a-zA-Zа-яА-Я0-9]+ $/g, '');
@@ -92,7 +104,39 @@ export function open(evt){
   },
   true)
 
-
+    //SCALE 
+    // уменшение
+    smallerScale.addEventListener("click", smaller)
+    function smaller(){   
+      if(valueScale.value != "25%"){
+        maxValue -= 25
+        scaleDisplay()
+        cssScale ()
+      }
+    }
+  
+    // увеличение
+    biggerScale.addEventListener("click", bigger)
+    function bigger(){
+      if(valueScale.value != "100%"){
+        maxValue += 25
+        scaleDisplay()
+        cssScale ()
+      }
+    }
+    // отображение в css
+    function cssScale () {
+      preview.style.transform = "scale" + "(" + valueScale.value + ")";
+    };
+  
+     // отображение масштаба 
+     function scaleDisplay(){
+      valueScale.value = String(maxValue) + "%";
+    }
+  
+    // EFFECT
+    
+  
 }
 
 function closeClick(evt){
