@@ -17,8 +17,11 @@ const valueScale = document.querySelector(".scale__control--value")
 let maxValue = 100;
 
 // effect 
-
- 
+const allEffects = document.querySelector(".img-upload__effects")
+// Intensity of effect
+let effectValue = document.querySelector(".effect-level__value")
+let levelEffectSlider = document.querySelector(".effect-level__slider")
+let radioEffects = document.querySelectorAll(".effects__radio")
 
 
 
@@ -133,8 +136,82 @@ export function open(evt){
      function scaleDisplay(){
       valueScale.value = String(maxValue) + "%";
     }
-  
-    // EFFECT
+
+    // EFFECTS
+
+    noUiSlider.create(levelEffectSlider,{
+      range: {
+        "min": [0],
+        "max": [100]
+      },
+      start: [100],
+      connect: true,
+      direction: "ltr", 
+      behaviour: 'tap-drag',
+    })
+
+    radioEffects.forEach(function(el){
+      el.addEventListener("click", function(evt){
+        filterCheck(evt.target.value) 
+      })
+    })
+
+    function filterCheck(effect){
+     
+      if(effect === "none"){
+        levelEffectSlider.style.display = "none"
+      } else {
+        levelEffectSlider.style.display = "block"
+      }
+      levelEffectSlider.noUiSlider.reset()
+      preview.value = effect
+
+      levelEffectSlider.noUiSlider.on("update", updateRange)
+
+      function updateRange(value){
+        let updateValue = effects(value, effect)
+        preview.style.filter = updateValue
+      }
+    }
+        
+    function effects(value, effect ){
+     
+       let max, formula, filterValue
+     
+       switch(effect){
+
+        case "chrome": 
+          max = 1
+          formula = ((max * value) / 100).toFixed(2)
+          filterValue = `grayscale(${formula})`
+          break;
+        case "sepia":
+          max = 1
+          formula = ((max * value) / 100).toFixed(2)
+          filterValue = `sepia(${formula})`;
+          break;
+        case "marvin":
+          formula = (value)
+          filterValue = `invert(${formula})`;    
+          break;
+        case "phobos":
+          max = 3
+          formula = ((max * value) / 100).toFixed(1)
+          filterValue = `blur(${formula}px)`;
+          break;
+        case "heat":
+          max = 3
+          formula = (((max * value) / 50) + 1).toFixed(1)
+          filterValue = `brightness(${formula})`;
+          break;
+        case "none":
+          formula = null
+          filterValue = "none"
+        }
+
+      effectValue.value = formula
+      return filterValue
+    }
     
   
 }
