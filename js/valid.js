@@ -149,7 +149,12 @@ export function open(evt){
       direction: "ltr", 
       behaviour: 'tap-drag',
     })
+    levelEffectSlider.classList.add("trueSlider")
 
+   
+
+    
+    
     radioEffects.forEach(function(el){
       el.addEventListener("click", function(evt){
         filterCheck(evt.target.value) 
