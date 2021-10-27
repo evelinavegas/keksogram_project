@@ -14,10 +14,10 @@ let levelEffectSlider = document.querySelector(".effect-level__slider")
 
 
 export function allFunction(){
-
+window.addEventListener("load", funcGetDate)
   function funcGetDate(){
     async function getDate(){
-
+      debugger
       let responseGet = await fetch("https://23.javascript.pages.academy/kekstagram/data",
         {
           method: 'GET',
@@ -26,6 +26,12 @@ export function allFunction(){
       let dataGet = await responseGet.json()
       return dataGet;
     }
+    getDate().then(function(resp){  
+      console.log(resp)
+      
+      big(resp)
+ 
+    })
   }
  
      
@@ -42,43 +48,23 @@ export function allFunction(){
 
     function status(response){
       if(response = "ok"){
-        //  строка 45- 48 создание сообщения об успешной отправки
         let elem = document.createElement("div");
         let clone = success.content.cloneNode(true)
         elem.append(clone); 
         main.append(elem)
-        debugger
-        containerBidPhoto.style.visibility = "hidden"
+       
+       containerBidPhoto.classList.add("hidden")
 
         form.reset()
         uploadImage.value = ""
-       
-        // собітия при уже показаном сообщении об успехе ,чтобы его закрыть
+
         window.addEventListener("click", templateClick) 
         window.addEventListener("keydown", templateKey)
 
         function templateClick (event) {
-
-            debugger
-            if(levelEffectSlider.classList.contains("trueSlider")){
             
-            }else{
-              noUiSlider.create(levelEffectSlider,{
-                range: {
-                  "min": [0],
-                  "max": [100]
-                },
-                start: [100],
-                connect: true,
-                direction: "ltr", 
-                behaviour: 'tap-drag',
-              })
-            }
-      
           if (event.target.className === "success__button"){
-           
             elem.remove()
-            window.removeEventListener("click", templateClick)
           } 
         }
 
@@ -102,7 +88,6 @@ export function allFunction(){
         function templateClick (event) {
           if(event.target.className === "error__button"){
             elem.style.display = "none"
-            
           }
         }
 

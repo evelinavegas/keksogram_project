@@ -17,7 +17,6 @@ const valueScale = document.querySelector(".scale__control--value")
 let maxValue = 100;
 
 // effect 
-const allEffects = document.querySelector(".img-upload__effects")
 // Intensity of effect
 let effectValue = document.querySelector(".effect-level__value")
 let levelEffectSlider = document.querySelector(".effect-level__slider")
@@ -26,12 +25,10 @@ let radioEffects = document.querySelectorAll(".effects__radio")
 
 
 hashtagsText.addEventListener("keyup", function(){
-  
   this.value = this.value.replace(/[^#a-zA-Zа-яА-Я0-9]+ $/g, '');
 })
 
 textDescription.addEventListener("keyup", function(){
-  
   this.value = this.value.replace(/[^a-zA-Zа-яА-Я0-9]+ $/g, '');
 })
 
@@ -73,10 +70,10 @@ function validForm(){
 uploadFile.addEventListener("change", open)
 
 export function open(evt){
-
+  debugger
   let sellectedFile = evt.target.files[0];
   let reader= new FileReader();
-  reader.onload =function(evt){
+  reader.onload =function(evt){  
     preview.src = evt.target.result
   }
   reader.readAsDataURL(sellectedFile)
@@ -110,23 +107,11 @@ export function open(evt){
     //SCALE 
     // уменшение
     smallerScale.addEventListener("click", smaller)
-    function smaller(){   
-      if(valueScale.value != "25%"){
-        maxValue -= 25
-        scaleDisplay()
-        cssScale ()
-      }
-    }
+    
   
     // увеличение
     biggerScale.addEventListener("click", bigger)
-    function bigger(){
-      if(valueScale.value != "100%"){
-        maxValue += 25
-        scaleDisplay()
-        cssScale ()
-      }
-    }
+    
     // отображение в css
     function cssScale () {
       preview.style.transform = "scale" + "(" + valueScale.value + ")";
@@ -138,87 +123,29 @@ export function open(evt){
     }
 
     // EFFECTS
-
-    noUiSlider.create(levelEffectSlider,{
-      range: {
-        "min": [0],
-        "max": [100]
-      },
-      start: [100],
-      connect: true,
-      direction: "ltr", 
-      behaviour: 'tap-drag',
-    })
+   const initSlider = document.querySelector(".trueSlider")
+   if(!initSlider){
+       noUiSlider.create(levelEffectSlider,{
+          range: {
+            "min": [0],
+            "max": [100]
+          },
+          start: [100],
+          connect: true,
+          direction: "ltr", 
+          behaviour: 'tap-drag',
+        })
     levelEffectSlider.classList.add("trueSlider")
+   }
 
-   
-
-    
-    
     radioEffects.forEach(function(el){
       el.addEventListener("click", function(evt){
         filterCheck(evt.target.value) 
       })
     })
 
-    function filterCheck(effect){
-     
-      if(effect === "none"){
-        levelEffectSlider.style.display = "none"
-      } else {
-        levelEffectSlider.style.display = "block"
-      }
-      levelEffectSlider.noUiSlider.reset()
-      preview.value = effect
-
-      levelEffectSlider.noUiSlider.on("update", updateRange)
-
-      function updateRange(value){
-        let updateValue = effects(value, effect)
-        preview.style.filter = updateValue
-      }
-    }
-        
-    function effects(value, effect ){
-     
-       let max, formula, filterValue
-     
-       switch(effect){
-
-        case "chrome": 
-          max = 1
-          formula = ((max * value) / 100).toFixed(2)
-          filterValue = `grayscale(${formula})`
-          break;
-        case "sepia":
-          max = 1
-          formula = ((max * value) / 100).toFixed(2)
-          filterValue = `sepia(${formula})`;
-          break;
-        case "marvin":
-          formula = (value)
-          filterValue = `invert(${formula})`;    
-          break;
-        case "phobos":
-          max = 3
-          formula = ((max * value) / 100).toFixed(1)
-          filterValue = `blur(${formula}px)`;
-          break;
-        case "heat":
-          max = 3
-          formula = (((max * value) / 50) + 1).toFixed(1)
-          filterValue = `brightness(${formula})`;
-          break;
-        case "none":
-          formula = null
-          filterValue = "none"
-        }
-
-      effectValue.value = formula
-      return filterValue
-    }
-    
-  
+    effects()
+    filterCheck()
 }
 
 function closeClick(evt){
@@ -226,8 +153,6 @@ function closeClick(evt){
   close()
   reset()
 }
-
-
 
 
 function closeKey(evt){
@@ -244,5 +169,75 @@ function close(){
 
 function reset(){
   form.reset()
+}
+
+function smaller(){   
+  if(valueScale.value != "25%"){
+    maxValue -= 25
+    scaleDisplay()
+    cssScale ()
+  }
+}
+function bigger(){
+  if(valueScale.value != "100%"){
+    maxValue += 25
+    scaleDisplay()
+    cssScale ()
+  }
+}
+
+function filterCheck(effect){
+     
+  if(effect === "none"){
+    levelEffectSlider.style.display = "none"
+  } else {
+    levelEffectSlider.style.display = "block"
+  }
+  levelEffectSlider.noUiSlider.reset()
+  preview.value = effect
+
+  levelEffectSlider.noUiSlider.on("update", updateRange)
+
+  function updateRange(value){
+    let updateValue = effects(value, effect)
+    preview.style.filter = updateValue
+  }
+}
+    
+function effects(value, effect){
+   let max, formula, filterValue
+   switch(effect){
+
+    case "chrome": 
+      max = 1
+      formula = ((max * value) / 100).toFixed(2)
+      filterValue = `grayscale(${formula})`
+      break;
+    case "sepia":
+      max = 1
+      formula = ((max * value) / 100).toFixed(2)
+      filterValue = `sepia(${formula})`;
+      break;
+    case "marvin":
+      formula = (value)
+      filterValue = `invert(${formula})`;    
+      break;
+    case "phobos":
+      max = 3
+      formula = ((max * value) / 100).toFixed(1)
+      filterValue = `blur(${formula}px)`;
+      break;
+    case "heat":
+      max = 3
+      formula = (((max * value) / 50) + 1).toFixed(1)
+      filterValue = `brightness(${formula})`;
+      break;
+    case "none":
+      formula = null
+      filterValue = "none"
+    }
+
+  effectValue.value = formula
+  return filterValue
 }
 

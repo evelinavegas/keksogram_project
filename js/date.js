@@ -38,6 +38,6 @@ export let avatars = photo.map((el, index) =>{
   return desc
 })
  
-console.log(avatars)
+
 
 
