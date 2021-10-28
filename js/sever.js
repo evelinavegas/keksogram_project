@@ -10,7 +10,8 @@ const uploadImage = document.getElementById("upload-file")
 const err = document.getElementById("error")
 const btnCloseReset = document.getElementById("upload-cancel")
 const containerBidPhoto = document.querySelector(".img-upload__overlay")
-let levelEffectSlider = document.querySelector(".effect-level__slider")
+const errorButton = document.querySelector('.error__button');
+
 
 
 export function allFunction(){
@@ -28,9 +29,12 @@ window.addEventListener("load", funcGetDate)
     }
     getDate().then(function(resp){  
       console.log(resp)
+      clonPicture(resp)
       
-      big(resp)
- 
+    }) 
+    .catch(function (error) {
+      errorMess(error, "Попробуйте снова");    
+      errorButton.addEventListener("click", getDate)
     })
   }
  
@@ -48,55 +52,11 @@ window.addEventListener("load", funcGetDate)
 
     function status(response){
       if(response = "ok"){
-        let elem = document.createElement("div");
-        let clone = success.content.cloneNode(true)
-        elem.append(clone); 
-        main.append(elem)
-       
-       containerBidPhoto.classList.add("hidden")
-
         form.reset()
-        uploadImage.value = ""
-
-        window.addEventListener("click", templateClick) 
-        window.addEventListener("keydown", templateKey)
-
-        function templateClick (event) {
-            
-          if (event.target.className === "success__button"){
-            elem.remove()
-          } 
-        }
-
-        function templateKey (ev){      
-          if (ev.keyCode == 27){
-            elem.style.display = "none"
-          }
-        }
+        successMess()
       } 
       else {
-        let elem = document.createElement("div");
-        let clone = err.content.cloneNode(true)
-        elem.append(clone);  
-        main.append(elem)
-
-        form.reset()
-
-        window.addEventListener("click", templateClick) 
-        window.addEventListener("keydown", templateKey)
-
-        function templateClick (event) {
-          if(event.target.className === "error__button"){
-            elem.style.display = "none"
-          }
-        }
-
-        function templateKey (ev){
-          if (ev.keyCode == 27){
-            elem.style.display = "none"
-          }
-        }
-
+       errorMess(" Ошибка отправки фотографий", "Закрыть")
       }
     }
     status(responce)
@@ -110,3 +70,59 @@ window.addEventListener("load", funcGetDate)
 }
 
 allFunction()
+
+function successMess(){
+  let elem = document.createElement("div");
+  let clone = success.content.cloneNode(true)
+  elem.append(clone); 
+  main.append(elem)
+       
+  containerBidPhoto.classList.add("hidden")
+
+  window.addEventListener("click", templateClick) 
+  window.addEventListener("keydown", templateKey)
+
+  function templateClick (event) {       
+    if (event.target.className === "success__button"){
+       elem.remove()
+     } 
+  }
+
+  function templateKey (ev){      
+    if (ev.keyCode == 27){
+       elem.style.display = "none"
+    }
+  }
+}
+
+
+function errorMess( errorMessage, errorButton){
+  let elem = document.createElement('div');
+  let clone = error.content.cloneNode(true);
+
+  let newError = clone.querySelector('.error__title');
+  let newErrorButton = clone.querySelector('.error__button');
+  newError.innerText = errorMessage;
+  newErrorButton.innerText = errorButton;
+
+  containerBidPhoto.classList.add("hidden")
+
+  elem.append(clone);
+  main.append(elem);
+ 
+
+  window.addEventListener("click", templateClick) 
+  window.addEventListener("keydown", templateKey)
+
+  function templateClick (event) {
+    if(event.target.className === "error__button"){
+      elem.style.display = "none"
+    }
+  }
+
+  function templateKey (ev){
+    if (ev.keyCode == 27){
+      elem.style.display = "none"
+    }
+  }
+}

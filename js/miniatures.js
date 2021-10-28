@@ -19,7 +19,7 @@ export function clonPicture(incomingValue){
   let someLikes = incomingValue.likes
   pictureLikes.innerText = someLikes
 
-  let someComments = incomingValue.comments.length
+  let someComments = incomingValue.comments
   picturesComments.innerText = someComments
 
   let newUrl = incomingValue.url
