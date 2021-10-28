@@ -16,27 +16,38 @@ const errorButton = document.querySelector('.error__button');
 
 export function allFunction(){
 window.addEventListener("load", funcGetDate)
-  function funcGetDate(){
-    async function getDate(){
+function funcGetDate(){
+
       debugger
-      let responseGet = await fetch("https://23.javascript.pages.academy/kekstagram/data",
-        {
-          method: 'GET',
-          credentials: 'same-origin',
+      try{
+        async function getDate(){
+          let responseGet = await fetch("https://23.javascript.pages.academy/kekstagram/data",
+              {
+                method: 'GET',
+                credentials: 'same-origin',
+              })    
+          let dataGet = await responseGet.json()
+          return dataGet; 
+        }
+        getDate().then(function(resp){  
+          console.log(resp)
+          clonPicture(resp)
         })
-      let dataGet = await responseGet.json()
-      return dataGet;
+      }
+      catch(error){
+        errorMess(error, "Попробуйте снова");    
+        errorButton.addEventListener("click", getDate)
+      }
     }
-    getDate().then(function(resp){  
-      console.log(resp)
-      clonPicture(resp)
+  
+  //Господи, и куда эти дичь снизу засунуть,  а то как бедный родственник
+
+  // getDate().then(function(resp){  
+  //   console.log(resp)
+  //   clonPicture(resp)
+  // })
       
-    }) 
-    .catch(function (error) {
-      errorMess(error, "Попробуйте снова");    
-      errorButton.addEventListener("click", getDate)
-    })
-  }
+    
  
      
   form.addEventListener("submit", senDate)
