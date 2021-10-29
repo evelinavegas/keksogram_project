@@ -1312,6 +1312,41 @@ main {
   opacity: 0.6;
 }
 
+/* Error LOad Window */
+
+.errorLoad{
+  width: 800px;
+  height: 400px;
+  background: #3c3614;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 22.5%;
+  top: 22.5%;
+  z-index: 1;
+  border: 6px solid red;
+}
+
+.titleErrorLoad{
+  font-weight: 700;
+  font-size: 32px;
+  color: #ffe753;
+  margin-top: 10%;
+}
+.linkErrorLoad{
+  margin-top: 10%;
+  padding: 5px 10px;
+  color:red;
+  text-transform: uppercase;
+  background: transparent;
+  border: 2px solid red;
+  border-radius: 5px;
+  text-decoration:none;
+  font-weight: 700;
+  font-size: 32px;
+}
+
 
 /**
  * Экран загрузки изображения

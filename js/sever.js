@@ -1,6 +1,6 @@
 import {big} from "./big_miniatures.js"
 import {open} from "./valid.js"
-import {clonPicture} from "./miniatures.js"
+import { renderPicture} from "./miniatures.js"
 
 const form = document.getElementById("upload-select-image")
 
@@ -16,37 +16,28 @@ const errorButton = document.querySelector('.error__button');
 
 export function allFunction(){
 window.addEventListener("load", funcGetDate)
-function funcGetDate(){
 
-      debugger
-      try{
-        async function getDate(){
-          let responseGet = await fetch("https://23.javascript.pages.academy/kekstagram/data",
-              {
-                method: 'GET',
-                credentials: 'same-origin',
-              })    
-          let dataGet = await responseGet.json()
-          return dataGet; 
-        }
-        getDate().then(function(resp){  
-          console.log(resp)
-          clonPicture(resp)
-        })
-      }
-      catch(error){
-        errorMess(error, "Попробуйте снова");    
-        errorButton.addEventListener("click", getDate)
-      }
-    }
+async function getDate(){
   
-  //Господи, и куда эти дичь снизу засунуть,  а то как бедный родственник
+  let responseGet = await fetch("https://23.javascript.pages.academy/kekstagram/data",
+      {
+        method: 'GET',
+        credentials: 'same-origin',
+      })    
+  let dataGet = await responseGet.json()
+  return dataGet; 
+}
 
-  // getDate().then(function(resp){  
-  //   console.log(resp)
-  //   clonPicture(resp)
-  // })
-      
+function funcGetDate(){
+    getDate().then(function(resp){  
+      console.log(resp)
+     renderPicture(resp)
+    })
+    .catch(function(error){
+       errorLoaderWindow()
+       
+    })  
+}
     
  
      
@@ -64,7 +55,7 @@ function funcGetDate(){
     function status(response){
       if(response = "ok"){
         form.reset()
-        successMess()
+       successMess()
       } 
       else {
        errorMess(" Ошибка отправки фотографий", "Закрыть")
@@ -136,4 +127,31 @@ function errorMess( errorMessage, errorButton){
       elem.style.display = "none"
     }
   }
+}
+
+function errorLoaderWindow(){
+  const contentError = document.createElement("div");
+  const titleContentError = document.createElement("p");
+  const buttonContentError = document.createElement("a");
+
+  titleContentError.innerText = "Ошибка загрузки страници"
+  buttonContentError.innerText = "Перезагрузить страницу"
+  buttonContentError.setAttribute("href", "#")
+
+  containerBidPhoto.classList.add("hidden")
+
+
+  contentError.setAttribute("class", "errorLoad")
+  titleContentError.setAttribute("class", "titleErrorLoad")
+  buttonContentError.setAttribute("class", "linkErrorLoad")
+
+  contentError.append(titleContentError)
+  contentError.appendChild(buttonContentError)
+  main.append(contentError)
+ 
+
+  buttonContentError.addEventListener("click", ()=>{
+    document.location.reload()
+  } )
+
 }

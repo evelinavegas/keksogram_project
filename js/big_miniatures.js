@@ -12,31 +12,33 @@ const socialCommentCount = containerBigPicture.querySelector(".social__comment-c
 const commentsLoader = containerBigPicture.querySelector(".comments-loader")
 const body = document.querySelector("body")
 const pictureCancel = containerBigPicture.querySelector(".big-picture__cancel")
-const picture  = document.querySelectorAll(".picture")
 
 
-export function big (){
 
+export function big (val){
+ 
   window.addEventListener("keydown", closeKeyPicture)
   pictureCancel.addEventListener("click", closeClickPicture)
-
-  pict()
+  
+  pict(val)
 }
 
-function pict(){
+function pict(val){
+  const picture  = document.querySelectorAll(".picture")
   for(let i = 0; i < picture.length; i++){
-    picture[i].addEventListener("click", renderBigPhoto)
+    picture[i].addEventListener("click",(evt)=> {  
+      renderBigPhoto(evt, val)})
   }
 }
 
 
-function renderBigPhoto(evt){
+function renderBigPhoto(evt, val){
   containerBigPicture.classList.remove("hidden")
   
   evt.target.dataset.id
   let num = Number(evt.target.dataset.id)
   
-  let findPicture = avatars.find(element => element.id === num);
+  let findPicture = val.find(element => element.id === num);
   
   body.classList.add("modal-open")
 
@@ -71,9 +73,9 @@ function renderBigPhoto(evt){
      if (  lengthAllComments >= 5){
         
         count = count + 5
-       let yy = findPicture.comments.slice(0, count)
-       socialCommentCount.innerHTML = yy.length + " "  + "из" + " " + lengthAllComments + " " + "комментариев";
-       let stringComments =  yy.map(el => {
+       let sliceComments = findPicture.comments.slice(0, count)
+       socialCommentCount.innerHTML = sliceComments .length + " "  + "из" + " " + lengthAllComments + " " + "комментариев";
+       let stringComments =  sliceComments .map(el => {
        return `<li class="social__comment" >
         <img class="social__picture" src = "${el.avatar}" alt = "${el.name}" width="35" height="35">
         <p class="social__text"> ${el.message}</p>
@@ -93,6 +95,7 @@ function renderBigPhoto(evt){
           socialCommentCount.innerHTML = lengthAllComments + " "  + "из" + " " + lengthAllComments + " " + "комментариев";
   
           socialComments.innerHTML = stringComments
+          commentsLoader.classList.add("hidden")
       }
 
   }

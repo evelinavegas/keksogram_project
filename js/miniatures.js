@@ -1,12 +1,14 @@
 
-import {avatars} from "./date.js"
+// import {avatars} from "./date.js"
+
+import { big } from "./big_miniatures.js";
 
 
 export function clonPicture(incomingValue){
   
   const picture = document.getElementById("picture")
   .content
-
+ 
   const clonedPicture = picture.cloneNode(true);
 
   let pictureLikes= clonedPicture.querySelector(".picture__likes")
@@ -19,7 +21,7 @@ export function clonPicture(incomingValue){
   let someLikes = incomingValue.likes
   pictureLikes.innerText = someLikes
 
-  let someComments = incomingValue.comments
+  let someComments = incomingValue.comments.length
   picturesComments.innerText = someComments
 
   let newUrl = incomingValue.url
@@ -36,12 +38,16 @@ export function clonPicture(incomingValue){
   
  return clonedPicture
 }
+ export function renderPicture(value){
+  let i ;
+  for(i = 0; i < 25; i++){
+    let one = value[i]
+    clonPicture(one)
 
-let i ;
-for(i = 0; i < 25; i++){
-  let one = avatars[i]
-  clonPicture(one)
+  }
+  big(value)
 }
+
 
 
 
