@@ -1,5 +1,4 @@
 
-// import {avatars} from "./date.js"
 
 import { big } from "./big_miniatures.js";
 

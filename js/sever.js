@@ -1,6 +1,7 @@
 import {big} from "./big_miniatures.js"
 import {open} from "./valid.js"
 import { renderPicture} from "./miniatures.js"
+import { filtering } from "./filter.js"
 
 const form = document.getElementById("upload-select-image")
 
@@ -32,6 +33,7 @@ function funcGetDate(){
     getDate().then(function(resp){  
       console.log(resp)
      renderPicture(resp)
+     filtering(resp)
     })
     .catch(function(error){
        errorLoaderWindow()
