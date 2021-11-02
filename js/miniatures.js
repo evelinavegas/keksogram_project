@@ -15,7 +15,7 @@ export function clonPicture(incomingValue){
   let picturesComments = clonedPicture.querySelector(".picture__comments")
 
   imgSrc.setAttribute("data-id", incomingValue.id)
-  
+ 
 
   let someLikes = incomingValue.likes
   pictureLikes.innerText = someLikes
@@ -26,7 +26,6 @@ export function clonPicture(incomingValue){
   let newUrl = incomingValue.url
   imgSrc.src = newUrl 
 
-  console.log(incomingValue)
 
   const pictContainer = document.querySelector(".pictures")
   const fragment = document.createDocumentFragment();
@@ -39,7 +38,7 @@ export function clonPicture(incomingValue){
 }
  export function renderPicture(value){
   let i ;
-  for(i = 0; i < 25; i++){
+  for(i = 0; i < value.length ; i++){
     let one = value[i]
     clonPicture(one)
 

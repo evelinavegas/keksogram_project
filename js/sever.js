@@ -32,12 +32,11 @@ async function getDate(){
 function funcGetDate(){
     getDate().then(function(resp){  
       console.log(resp)
-     renderPicture(resp)
+      renderPicture(resp)
      filtering(resp)
     })
     .catch(function(error){
-       errorLoaderWindow()
-       
+       errorLoaderWindow()  
     })  
 }
     
