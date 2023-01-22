@@ -1,7 +1,5 @@
 const countOffer = 25;
 
-// Description 
-
 const descriptions = [
     'Фото, заряджене на позитив.',
     'Теплі спогади в холодну пору року.',
@@ -53,7 +51,6 @@ function getOffer(index) {
     }
 }
 
-// Random function 
 
 function getRandomCount(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -65,7 +62,6 @@ function getRandomValue(array) {
     return value
 }
 
-//  Coment
 
 function getAvatar() {
     const randomIndex = getRandomCount(1, 6);
