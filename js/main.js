@@ -83,4 +83,81 @@ function getAvatar(i) {
 
 addPhoto(dataArray)
 
+const bigPicture = document.querySelector('.big-picture');
+const bigPictureImg = document.querySelector('.big-picture__img img');
+const buttonCancel = document.querySelector('#picture-cancel');
+const likesCount = document.querySelector('.likes-count');
+const socialComments = document.querySelector('.social__comment');
+let socialCommentsContainer = document.querySelector('.social__comments');
+const socialCaption = document.querySelector('.social__caption');
+const commentsCount = document.querySelector('.comments-count');
+const body = document.querySelector('body')
 
+
+let commentsArr = [];
+
+const pictureLict = document.querySelectorAll('.picture');
+pictureLict.forEach((data, index) => {
+    data.setAttribute('data-id', index);
+});
+
+
+
+const commentsFragment = new DocumentFragment();
+
+
+function createComents(data) {
+    const socialCommentseNode = socialComments.cloneNode(true);
+
+    socialCommentseNode.querySelector('.social__picture').src = data.avatar;
+    socialCommentseNode.querySelector('.social__picture').alt = data.name;
+    socialCommentseNode.querySelector('.social__text').innerText = data.message;
+
+    commentsFragment.append(socialCommentseNode);
+
+
+}
+function createComentsBlock(array) {
+
+    array.forEach((data) => createComents(data))
+    socialCommentsContainer.innerHTML =('')
+
+    socialCommentsContainer.append(commentsFragment)    
+}
+
+function getIndexArray(index){
+    commentsArr = dataArray[index].comment
+    createComentsBlock(commentsArr) 
+}
+
+function closeBigPicture() {
+    bigPicture.classList.add('hidden')
+    body.classList.remove('modal-open');
+    socialCommentsContainer.innerHTML = '';
+
+}
+
+pictureLict.forEach((e) => e.addEventListener('click', (evt) => {
+    bigPicture.classList.remove('hidden');
+    body.classList.add('modal-open');
+
+    const countBigPost = e.dataset.id;
+    const arrayIndex = dataArray[countBigPost]
+    console.log(arrayIndex.com)
+    bigPictureImg.src = arrayIndex.url;
+    likesCount.innerText = arrayIndex.likes;
+    socialCaption.innerText = arrayIndex.description;
+    commentsCount.innerText = arrayIndex.comment.length;
+    getIndexArray(countBigPost);
+   
+}))
+
+buttonCancel.addEventListener('click',  () => {
+    closeBigPicture()    
+});
+
+document.addEventListener('keydown',  (evt) => {
+    if(evt.key === "Escape" ){
+        closeBigPicture()
+    }
+})
