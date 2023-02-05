@@ -143,7 +143,6 @@ pictureLict.forEach((e) => e.addEventListener('click', (evt) => {
 
     const countBigPost = e.dataset.id;
     const arrayIndex = dataArray[countBigPost]
-    console.log(arrayIndex.com)
     bigPictureImg.src = arrayIndex.url;
     likesCount.innerText = arrayIndex.likes;
     socialCaption.innerText = arrayIndex.description;
