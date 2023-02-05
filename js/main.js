@@ -1,3 +1,4 @@
+import {addPhoto} from './task2.js'
 
 const countOffer = 25;
 const countComment = 6;
@@ -80,5 +81,6 @@ function getAvatar(i) {
     return avatar
 }
 
+addPhoto(dataArray)
 
 
