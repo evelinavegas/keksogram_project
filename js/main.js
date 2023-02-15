@@ -1,4 +1,6 @@
 import {addPhoto} from './task2.js'
+import {textHashtags, textDescription, checkHashteg, checkDescription, closByEsc} from './task4.js'
+
 
 const countOffer = 25;
 const countComment = 6;
@@ -160,3 +162,12 @@ document.addEventListener('keydown',  (evt) => {
         closeBigPicture()
     }
 })
+// --- TASK_4 ---
+
+textHashtags;
+textDescription;
+
+checkHashteg()
+checkDescription()
+closByEsc(textHashtags)
+closByEsc(textDescription)
