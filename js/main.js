@@ -1,9 +1,18 @@
-import {addPhoto} from './task2.js'
+import {addPhoto} from './task2.js';
+// import {textHashtags, textDescription, checkHashteg, checkDescription, closByEsc} from './task4.js'
+
 
 const countOffer = 25;
 const countComment = 6;
 
-
+const RENGE_LIKES = {
+    min: 15,
+    max: 200
+};
+const RENGE_COMMENT = {
+    min: 0,
+    max: 100
+}
 const descriptions = [
     'Фото, заряджене на позитив.',
     'Теплі спогади в холодну пору року.',
@@ -32,15 +41,15 @@ const nameArray = [
     'Устина',
     'Жанна'
 ];
-const messageArray = new Array(35).fill(null).map((e, index)=> getComment(index));
+// const messageArray = new Array(35).fill(null).map((e, index)=> getComment(index));
 
 const dataArray = new Array(countOffer).fill(null).map((e, index)=>getOffer(index));
 
 
 
-function getComment(){
+function getComment(min, max){
     let comments = [];
-    for (let i = 0; i < getRandomCount(2, countComment); i++) {
+    for (let i = 1; i < getRandomCount(min, max); i++) {
         let comment = {
             id: i,
             avatar: getAvatar(countComment),
@@ -51,15 +60,15 @@ function getComment(){
     }
     return comments;
 }
-getComment()
+
 
 function getOffer(index) {
-    let commentaries = getComment(getRandomCount(1, countOffer));
+    let commentaries = getComment(RENGE_COMMENT.min, RENGE_COMMENT.max);
     return {
         id: index + 1,
         url: `./photos/${index + 1}.jpg`,
         description: getRandomValue(descriptions),
-        likes: getRandomCount(15, 200),
+        likes: getRandomCount(RENGE_LIKES.min, RENGE_LIKES.max),
         comment: commentaries
     }
 }
@@ -90,8 +99,9 @@ const likesCount = document.querySelector('.likes-count');
 const socialComments = document.querySelector('.social__comment');
 let socialCommentsContainer = document.querySelector('.social__comments');
 const socialCaption = document.querySelector('.social__caption');
-const commentsCount = document.querySelector('.comments-count');
-const body = document.querySelector('body')
+const commentsCount = document.querySelector('.comment-count');
+const body = document.querySelector('body');
+
 
 
 let commentsArr = [];
@@ -125,10 +135,7 @@ function createComentsBlock(array) {
     socialCommentsContainer.append(commentsFragment)    
 }
 
-function getIndexArray(index){
-    commentsArr = dataArray[index].comment
-    createComentsBlock(commentsArr) 
-}
+
 
 function closeBigPicture() {
     bigPicture.classList.add('hidden')
@@ -142,12 +149,12 @@ pictureLict.forEach((e) => e.addEventListener('click', (evt) => {
     body.classList.add('modal-open');
 
     const countBigPost = e.dataset.id;
-    const arrayIndex = dataArray[countBigPost]
+    const arrayIndex = dataArray[countBigPost];
     bigPictureImg.src = arrayIndex.url;
     likesCount.innerText = arrayIndex.likes;
     socialCaption.innerText = arrayIndex.description;
-    commentsCount.innerText = arrayIndex.comment.length;
-    getIndexArray(countBigPost);
+    createLoaderComments(arrayIndex)
+    
    
 }))
 
@@ -160,3 +167,61 @@ document.addEventListener('keydown',  (evt) => {
         closeBigPicture()
     }
 })
+
+// --- TASK_4 ---
+
+textHashtags;
+textDescription;
+
+checkHashteg()
+checkDescription()
+closByEsc(textHashtags)
+closByEsc(textDescription)
+
+
+
+// --- TASK_6 ---
+
+
+function createLoaderComments(idArr){
+    const commentCount = document.querySelector('.social__comment-count');
+    const commentsLoader = document.querySelector('.comments-loader');
+    let commentStep = 5
+    const commentsArr = idArr.comment;
+
+    const COMMENT_STEP = {
+        min: 0,
+        max: 5
+    }
+    let commentsArrGenerat =[]
+    commentsArrGenerat = commentsArr.slice(COMMENT_STEP.min, COMMENT_STEP.max);
+
+    createComentsBlock(commentsArrGenerat);
+
+    if(commentsArr.length > 5){
+        commentsLoader.classList.remove('hidden');
+        commentCount.classList.remove('hidden');
+        const commentCountAll = document.querySelector('.comments-count');
+        console.log(commentsArr.length)
+        commentCountAll.innerText = commentsArr.length;
+
+        commentsLoader.addEventListener('click', () => {
+            if(commentsArr.length - commentStep > commentStep){
+                commentStep += commentStep;
+                console.log(commentStep)
+            } else {
+                commentStep = commentsArr.length;
+                commentsLoader.classList.add('hidden');
+
+            }
+            console.log(commentsArr.length)
+            commentCount.innerText = `${commentStep} з ${commentsArr.length} коментарів`;
+
+            commentsArrGenerat = commentsArr.slice(0, commentStep);
+            createComentsBlock(commentsArrGenerat)
+        })
+    }else {        
+        commentsLoader.classList.add('hidden');
+        commentCount.classList.add('hidden');
+    }
+}
