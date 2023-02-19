@@ -202,19 +202,19 @@ function createLoaderComments(idArr){
         commentsLoader.classList.remove('hidden');
         commentCount.classList.remove('hidden');
         const commentCountAll = document.querySelector('.comments-count');
-        console.log(commentsArr.length)
+        
         commentCountAll.innerText = commentsArr.length;
 
         commentsLoader.addEventListener('click', () => {
             if(commentsArr.length - commentStep > commentStep){
                 commentStep += commentStep;
-                console.log(commentStep)
+                
             } else {
                 commentStep = commentsArr.length;
                 commentsLoader.classList.add('hidden');
 
             }
-            console.log(commentsArr.length)
+            
             commentCount.innerText = `${commentStep} з ${commentsArr.length} коментарів`;
 
             commentsArrGenerat = commentsArr.slice(COMMENT_STEP.min, commentStep);
