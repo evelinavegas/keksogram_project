@@ -206,8 +206,9 @@ function createLoaderComments(idArr){
         commentCountAll.innerText = commentsArr.length;
 
         commentsLoader.addEventListener('click', () => {
-            if(commentsArr.length - commentStep > commentStep){
-                commentStep += commentStep;
+            if(commentsArr.length - commentStep > COMMENT_STEP.max){
+                commentStep = commentStep + COMMENT_STEP.max;
+
                 
             } else {
                 commentStep = commentsArr.length;
