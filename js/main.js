@@ -155,8 +155,7 @@ pictureLict.forEach((e) => e.addEventListener('click', (evt) => {
     likesCount.innerText = arrayIndex.likes;
     socialCaption.innerText = arrayIndex.description;
     createLoaderComments(arrayIndex)
-    
-   
+    removeEffect()   
 }))
 
 buttonCancel.addEventListener('click',  () => {
