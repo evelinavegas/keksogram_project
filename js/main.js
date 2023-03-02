@@ -42,7 +42,6 @@ const nameArray = [
     'Устина',
     'Жанна'
 ];
-// const messageArray = new Array(35).fill(null).map((e, index)=> getComment(index));
 
 const dataArray = new Array(countOffer).fill(null).map((e, index)=>getOffer(index));
 
