@@ -1,6 +1,6 @@
 import {addPhoto} from './task2.js';
 import {textHashtags, textDescription, checkHashteg, checkDescription, closByEsc} from './task4.js'
-import {choiseEffect, getScale} from './task7.js';
+import {choiseEffect, getScale, removeEffect} from './task7.js';
 
 
 const countOffer = 25;
