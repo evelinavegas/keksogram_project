@@ -144,4 +144,9 @@ function createEffect(name, min, max, step, unit, fixed){
         })
 
 }
-// choiseEffect()
+export function removeEffect(){
+    img.removeAttribute("style");
+    imgUploadEffects.addEventListener('input', (e) => {
+        e.target.value = imgUploadEffectsNone
+    })
+}
