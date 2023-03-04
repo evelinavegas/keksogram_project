@@ -1,5 +1,6 @@
 import {addPhoto} from './task2.js';
 import {textHashtags, textDescription, checkHashteg, checkDescription, closByEsc} from './task4.js'
+import {choiseEffect, getScale, removeEffect} from './task7.js';
 
 
 const countOffer = 25;
@@ -41,7 +42,6 @@ const nameArray = [
     'Устина',
     'Жанна'
 ];
-// const messageArray = new Array(35).fill(null).map((e, index)=> getComment(index));
 
 const dataArray = new Array(countOffer).fill(null).map((e, index)=>getOffer(index));
 
@@ -154,8 +154,7 @@ pictureLict.forEach((e) => e.addEventListener('click', (evt) => {
     likesCount.innerText = arrayIndex.likes;
     socialCaption.innerText = arrayIndex.description;
     createLoaderComments(arrayIndex)
-    
-   
+    removeEffect()   
 }))
 
 buttonCancel.addEventListener('click',  () => {
@@ -198,27 +197,23 @@ function createLoaderComments(idArr){
 
     createComentsBlock(commentsArrGenerat);
 
-    if(commentsArr.length > commentStep){
+    if(commentsArr.length > 5){
         commentsLoader.classList.remove('hidden');
         commentCount.classList.remove('hidden');
         const commentCountAll = document.querySelector('.comments-count');
-        
         commentCountAll.innerText = commentsArr.length;
 
         commentsLoader.addEventListener('click', () => {
-            if(commentsArr.length - commentStep > COMMENT_STEP.max){
+            if(commentsArr.length - commentStep >= COMMENT_STEP.max){
                 commentStep = commentStep + COMMENT_STEP.max;
-
-                
             } else {
                 commentStep = commentsArr.length;
                 commentsLoader.classList.add('hidden');
 
             }
-            
             commentCount.innerText = `${commentStep} з ${commentsArr.length} коментарів`;
 
-            commentsArrGenerat = commentsArr.slice(COMMENT_STEP.min, commentStep);
+            commentsArrGenerat = commentsArr.slice(0, commentStep);
             createComentsBlock(commentsArrGenerat)
         })
     }else {        
@@ -226,3 +221,6 @@ function createLoaderComments(idArr){
         commentCount.classList.add('hidden');
     }
 }
+getScale()
+choiseEffect()
+
