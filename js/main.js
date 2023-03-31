@@ -226,3 +226,45 @@ function createLoaderComments(idArr){
         commentCount.classList.add('hidden');
     }
 }
+
+const imgFilters = document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+const filterRandomBtn = document.querySelector('#filter-random');
+const filterDefaultBtn = document.querySelector('#filter-default');
+const filterDiscussedBtn = document.querySelector('#filter-discussed');
+let randomArr = []
+
+function randomPost(){
+    
+    for (let i = 0 ; (i < 10) && (i < dataArray.length) ; i++) {
+        let r = Math.floor(Math.random() * (dataArray.length - i)) + i;
+        let el = dataArray[r];
+        randomArr.push(el)
+    }
+    return randomArr
+}
+randomArr = randomPost();
+let discussedArr = []
+function discussedPost(){
+    const arr = dataArray.slice(0)
+    discussedArr = arr.sort(function(a,b){
+        return b.comment.length - a.comment.length
+    })
+    return discussedArr
+}
+discussedArr = discussedPost()
+
+function filtered(element, arr, element2, element3){
+    element.addEventListener('click', () =>{
+        const pictures = document.querySelectorAll('.picture')
+        pictures.forEach(e => e.remove())
+        addPhoto(arr)
+        element.classList.add('img-filters__button--active')
+        element2.classList.remove('img-filters__button--active')
+        element3.classList.remove('img-filters__button--active')
+    })
+}
+
+filtered(filterDefaultBtn, dataArray, filterDiscussedBtn, filterRandomBtn)
+filtered(filterDiscussedBtn, discussedArr, filterRandomBtn, filterDefaultBtn)
+filtered(filterRandomBtn, randomArr, filterDiscussedBtn,filterDefaultBtn)
+
