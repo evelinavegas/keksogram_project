@@ -1,4 +1,4 @@
-import {addPhoto} from './task2.js';
+
 import {textHashtags, textDescription, checkHashteg, checkDescription, closByEsc} from './task4.js'
 
 
@@ -178,51 +178,3 @@ checkDescription()
 closByEsc(textHashtags)
 closByEsc(textDescription)
 
-
-
-// --- TASK_6 ---
-
-
-function createLoaderComments(idArr){
-    const commentCount = document.querySelector('.social__comment-count');
-    const commentsLoader = document.querySelector('.comments-loader');
-    let commentStep = 5
-    const commentsArr = idArr.comment;
-
-    const COMMENT_STEP = {
-        min: 0,
-        max: 5
-    }
-    let commentsArrGenerat =[]
-    commentsArrGenerat = commentsArr.slice(COMMENT_STEP.min, COMMENT_STEP.max);
-
-    createComentsBlock(commentsArrGenerat);
-
-    if(commentsArr.length > commentStep){
-        commentsLoader.classList.remove('hidden');
-        commentCount.classList.remove('hidden');
-        const commentCountAll = document.querySelector('.comments-count');
-        
-        commentCountAll.innerText = commentsArr.length;
-
-        commentsLoader.addEventListener('click', () => {
-            if(commentsArr.length - commentStep > COMMENT_STEP.max){
-                commentStep = commentStep + COMMENT_STEP.max;
-
-                
-            } else {
-                commentStep = commentsArr.length;
-                commentsLoader.classList.add('hidden');
-
-            }
-            
-            commentCount.innerText = `${commentStep} з ${commentsArr.length} коментарів`;
-
-            commentsArrGenerat = commentsArr.slice(COMMENT_STEP.min, commentStep);
-            createComentsBlock(commentsArrGenerat)
-        })
-    }else {        
-        commentsLoader.classList.add('hidden');
-        commentCount.classList.add('hidden');
-    }
-}
